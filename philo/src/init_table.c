@@ -24,6 +24,11 @@ void	sub_init_table(t_table *table, int argc, char **argv)
 		table->meals_required = -1;
 	table->stop_simulation = 0;
 	table->start_time = now_ms();
+	table->forks = NULL;
+	table->forks_init = 0;
+	table->print_init = 0;
+	table->death_init = 0;
+	table->meal_init = 0;
 }
 
 int	init_table(t_table *table, int argc, char **argv)
@@ -36,22 +41,21 @@ int	init_table(t_table *table, int argc, char **argv)
 		return (1);
 	i = 0;
 	while (i < table->philo_nbr)
-	{
-		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
-		{
-			while (i--)
-				pthread_mutex_destroy(&table->forks[i]);
-			free(table->forks);
-			return (1);
-		}
-		++i;
-	}
+    {
+        if (pthread_mutex_init(&table->forks[i], NULL) != 0)
+            return (cleanup_table(table), 1);
+        ++table->forks_init;
+        ++i;
+    }
 	if (pthread_mutex_init(&table->print_mutex, NULL) != 0)
-		return (1);
+		return (cleanup_table(table), 1);
+	table->print_init = 1;
 	if (pthread_mutex_init(&table->death_lock, NULL) != 0)
-		return (1);
+		return (cleanup_table(table),1);
+	table->death_init = 1;
 	if (pthread_mutex_init(&table->meal_lock, NULL) != 0)
-		return (1);
+		return (cleanup_table(table), 1);
+	table->meal_init = 1;
 	return (0);
 }
 

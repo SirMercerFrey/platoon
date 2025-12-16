@@ -34,6 +34,10 @@ typedef struct s_table
 	pthread_mutex_t			print_mutex;
 	pthread_mutex_t			death_lock;
 	pthread_mutex_t			meal_lock;
+	int						forks_init;
+	int						print_init;
+	int						death_init;
+	int						meal_init;
 }	t_table;
 
 typedef struct s_philo
@@ -77,5 +81,8 @@ int		is_space(char c);
 int		ft_atoi(char *str);
 long	ft_atol(char *str);
 void	free_all(t_philo *philos, t_table *table);
+void	cleanup_table(t_table *table);
+int		launch_threads(t_table *table, t_philo *philos);
+void	join_threads(t_philo *philos, int count);
 
 #endif
