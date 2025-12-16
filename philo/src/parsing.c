@@ -62,7 +62,7 @@ int	check_atoi(char *str)
 
 int	check_atol(char *str)
 {
-	long long	result;
+	long	result;
 
 	while (*str && is_space(*str))
 		++str;
@@ -77,9 +77,9 @@ int	check_atol(char *str)
 	result = 0;
 	while (*str >= '0' && *str <= '9')
 	{
-		result = result * 10 + *str - '0';
-		if (result > LONG_MAX)
+		if (result > ((LONG_MAX - *str + '0') / 10))
 			return (0);
+		result = result * 10 + *str - '0';
 		++str;
 	}
 	if (*str != '\0')

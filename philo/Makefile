@@ -30,23 +30,23 @@ OBJ			= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 all : $(NAME)
 
 $(OBJ_DIR) :
-	@mkdir -p $(OBJ_DIR)
 	@echo "$(GREY)Creating object directory...$(RESET)"
+	mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c | $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -I./include -c $< -o $@
 	@echo "$(YELLOW)Compiling $(RESET)$<" 
+	$(CC) $(CFLAGS) -I./include -c $< -o $@
 
 $(NAME) : $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo "$(GREEN)Build successful: $(NAME)$(RESET)"
 
 clean :
-	@rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)
 	@echo "$(RED)Object files removed$(RESET)"
 	
 fclean : clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 	@echo "$(RED)Executable removed$(RESET)"
 
 re : fclean all
