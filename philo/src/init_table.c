@@ -6,7 +6,7 @@
 /*   By: mcharret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 18:18:20 by mcharret          #+#    #+#             */
-/*   Updated: 2025/11/29 18:20:35 by mcharret         ###   ########.fr       */
+/*   Updated: 2025/12/18 15:53:39 by mcharret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ int	init_table(t_table *table, int argc, char **argv)
 		return (1);
 	i = 0;
 	while (i < table->philo_nbr)
-    {
-        if (pthread_mutex_init(&table->forks[i], NULL) != 0)
-            return (cleanup_table(table), 1);
-        ++table->forks_init;
-        ++i;
-    }
+	{
+		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
+			return (cleanup_table(table), 1);
+		++table->forks_init;
+		++i;
+	}
 	if (pthread_mutex_init(&table->print_mutex, NULL) != 0)
 		return (cleanup_table(table), 1);
 	table->print_init = 1;
 	if (pthread_mutex_init(&table->death_lock, NULL) != 0)
-		return (cleanup_table(table),1);
+		return (cleanup_table(table), 1);
 	table->death_init = 1;
 	if (pthread_mutex_init(&table->meal_lock, NULL) != 0)
 		return (cleanup_table(table), 1);
