@@ -75,7 +75,7 @@ int		check_meal(t_philo *philo);
 void	only_one_philo(t_philo *philo);
 long	timestamp_from_start(t_philo *philo);
 long	now_ms(void);
-void	ft_sleep(long ms);
+void	ft_sleep(long ms, t_philo *philo);
 void	set_end_simulation(t_philo *philo);
 int		is_space(char c);
 int		ft_atoi(char *str);

@@ -56,7 +56,7 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(&philo->table->death_lock);
 	philo->last_meal_time = now_ms();
 	pthread_mutex_unlock(&philo->table->death_lock);
-	ft_sleep(philo->table->time_to_eat);
+	ft_sleep(philo->table->time_to_eat, philo);
 	pthread_mutex_lock(&philo->table->meal_lock);
 	++philo->meals_eaten;
 	pthread_mutex_unlock(&philo->table->meal_lock);
@@ -67,7 +67,7 @@ void	eat(t_philo *philo)
 void	sleepx(t_philo *philo)
 {
 	print_sleep(philo);
-	ft_sleep(philo->table->time_to_sleep);
+	ft_sleep(philo->table->time_to_sleep, philo);
 }
 
 void	think(t_philo *philo)
@@ -90,7 +90,7 @@ void	think(t_philo *philo)
 	nap = remaining / 10;
 	if (nap < 1)
 		nap = 1;
-	ft_sleep(nap);
+	ft_sleep(nap, philo);
 }
 
 void	only_one_philo(t_philo *philo)
@@ -98,7 +98,7 @@ void	only_one_philo(t_philo *philo)
 	pthread_mutex_lock(philo->left_fork);
 	print_fork(philo);
 	pthread_mutex_unlock(philo->left_fork);
-	ft_sleep(philo->table->time_to_die);
+	ft_sleep(philo->table->time_to_die, philo);
 	pthread_mutex_lock(&philo->table->print_mutex);
 	printf("%ld\t%d died\n", timestamp_from_start(philo), philo->id);
 	pthread_mutex_unlock(&philo->table->print_mutex);

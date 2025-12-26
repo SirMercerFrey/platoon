@@ -28,11 +28,15 @@ long	now_ms(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	ft_sleep(long ms)
+void	ft_sleep(long ms, t_philo *philo)
 {
 	long	start;
 
 	start = now_ms();
 	while (now_ms() - start < ms)
+	{
 		usleep(500);
+		if (!simulation_running(philo))
+			return ;
+	}
 }
