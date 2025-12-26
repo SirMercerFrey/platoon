@@ -72,25 +72,8 @@ void	sleepx(t_philo *philo)
 
 void	think(t_philo *philo)
 {
-	long	time_since_last;
-	long	time_to_die;
-	long	time_to_eat;
-	long	remaining;
-	long	nap;
-
 	print_think(philo);
-	pthread_mutex_lock(&philo->table->death_lock);
-	time_since_last = now_ms() - philo->last_meal_time;
-	pthread_mutex_unlock(&philo->table->death_lock);
-	time_to_die = philo->table->time_to_die;
-	time_to_eat = philo->table->time_to_eat;
-	remaining = time_to_die - time_since_last - time_to_eat;
-	if (remaining <= 0)
-		return ;
-	nap = remaining / 10;
-	if (nap < 1)
-		nap = 1;
-	ft_sleep(nap, philo);
+	ft_sleep(philo->table->time_to_think, philo);
 }
 
 void	only_one_philo(t_philo *philo)

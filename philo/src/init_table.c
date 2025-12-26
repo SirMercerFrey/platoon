@@ -36,6 +36,7 @@ int	init_table(t_table *table, int argc, char **argv)
 	int		i;
 
 	sub_init_table(table, argc, argv);
+	table->time_to_think = find_thinking(table);
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_nbr);
 	if (!table->forks)
 		return (1);
@@ -84,4 +85,22 @@ int	init_philos(t_table *table, t_philo **philos)
 		++i;
 	}
 	return (0);
+}
+
+long	find_thinking(t_table *table)
+{
+	long	time_to_eat;
+	long	time_to_sleep;
+	long	time_to_think;
+
+	time_to_think = 0;
+	time_to_eat = table->time_to_eat;
+	time_to_sleep = table->time_to_sleep;
+	if (table->philo_nbr % 2 == 0)
+		time_to_think = time_to_eat - time_to_sleep;
+	else if (table->philo_nbr % 2 == 1)
+		time_to_think = 2 * time_to_eat - time_to_sleep;
+	if (time_to_think < 0)
+		time_to_think = 0;
+	return (time_to_think);
 }

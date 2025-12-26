@@ -27,6 +27,7 @@ typedef struct s_table
 	long					time_to_die;
 	long					time_to_eat;
 	long					time_to_sleep;
+	long					time_to_think;
 	int						meals_required;
 	int						stop_simulation;
 	long					start_time;
@@ -84,5 +85,6 @@ void	free_all(t_philo *philos, t_table *table);
 void	cleanup_table(t_table *table);
 int		launch_threads(t_table *table, t_philo *philos);
 void	join_threads(t_philo *philos, int count);
+long	find_thinking(t_table *table);
 
 #endif
