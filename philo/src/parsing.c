@@ -6,7 +6,7 @@
 /*   By: mcharret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 18:26:24 by mcharret          #+#    #+#             */
-/*   Updated: 2025/11/29 18:26:28 by mcharret         ###   ########.fr       */
+/*   Updated: 2025/12/26 16:30:15 by mcharret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	check_atoi(char *str)
 			return (0);
 		++str;
 	}
+	if (result == 0)
+		return (0);
 	if (*str != '\0')
 		return (0);
 	return (1);
